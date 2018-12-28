@@ -1,0 +1,44 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Listado de Pagos Recurrentes{% endblock %}
+{% block body %}
+
+    <a href="recurrentes/edit?id=add" class="btn btn-default">Nuevo Pago Recurrente</a>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th width="50%">Concepto</th>
+            <th>Cantidad</th>
+            <th>Tipo</th>
+            <th>Dia</th>
+            <th>Personas</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+        {% set tipos = this.recurrentes.getModel().getTiposPago() %}
+        {% for item in this.recurrentes %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.concepto }}</td>
+                <td>{{ item.cantidad }} €</td>
+                <td>{{ tipos[item.tipo] }}</td>
+                <td>{{ item.primer_dia }}</td>
+                <td>{{ item.getPersonasPagoRecurrente().count() }}</td>
+                <td>{{ item.desactivar?"Desactivado":"Si" }}</td>
+                <td><a href="recurrentes/edit?id={{ item.id }}">Editar</a> </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

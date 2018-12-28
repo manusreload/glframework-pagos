@@ -1,0 +1,45 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Editar Persona{% endblock %}
+{% block body %}
+
+    <form method="post">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" placeholder="Persona" name="persona[nombre]" value="{{ this.persona.nombre }}">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email" name="persona[email]" value="{{ this.persona.email }}">
+        </div>
+        <div class="form-group">
+            <label>Telefono</label>
+            <input type="text" class="form-control" placeholder="Telefono" name="persona[phone]" value="{{ this.persona.phone }}">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="persona[notificar_email]" value="0">
+                <input type="checkbox" name="persona[notificar_email]" value="1" {{ this.persona.notificar_email?"checked":"" }}> Notificar por email de nuevos pagos
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="persona[baja]" value="0">
+                <input type="checkbox" name="persona[baja]" value="1" {{ this.persona.baja?"checked":"" }}> Dar de Baja
+            </label>
+        </div>
+        <button name="save" type="submit" class="btn btn-default">Guardar</button>
+        <a href="/personas" class="btn btn-danger pull-right">Volver</a>
+    </form>
+
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

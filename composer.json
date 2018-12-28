@@ -1,0 +1,22 @@
+{
+  "name": "gestionlan/framework-installer",
+  "description": "The GLFramework Installer",
+  "version": "1.0.0",
+  "type": "project",
+  "require": {
+    "php": ">=5.5.0",
+    "gestionlan/framework": "*"
+  },
+  "extra": {
+    "merge-plugin": {
+      "include": [
+        "modules/*/composer.json",
+        "vendor/gestionlan/framework/modules/*/composer.json"
+      ]
+    }
+  },
+  "config": {
+    "secure-http": false
+  },
+  "minimum-stability": "dev"
+}

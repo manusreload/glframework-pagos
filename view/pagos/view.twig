@@ -1,0 +1,59 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Editar Pago{% endblock %}
+{% block body %}
+
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>Concepto</th>
+                    <td>{{ this.pago.concepto }}</td>
+                    <th>Cantidad</th>
+                    <td>{{ this.pago.cantidad }}</td>
+                    <th>Persona</th>
+                    <td>{{ this.pago.getPersona().nombre }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha Cargo</th>
+                    <td>{{ this.pago.fecha_cargo | date("d/m/Y") }}</td>
+                    <th>Está abonado</th>
+                    <td>{{ this.pago.pagado ? "Si" : "No" }}</td>
+                    <th>Fecha Abono</th>
+                    <td>{{ this.pago.fecha_abono | date("d/m/Y") }}</td>
+                </tr>
+                <tr>
+                    <th>Pago recurrente</th>
+                    <td>
+                        {% if this.pago.pago_recurrente_id  %}
+                            <a href="/recurrentes/edit?id={{ this.pago.pago_recurrente_id  }}">{{ this.pago.getPagoRecurrente().nombre }}</a>
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                    <th>Persona confirma abono</th>
+                    <td>{{ this.pago.persona_confirma_abono ? "Si" : "Sin confirmar" }}</td>
+                    <th>Fecha en la que se confirma</th>
+                    <td>{{ this.pago.persona_confirma_fecha | date("d/m/Y H:i:s") }}</td>
+                </tr>
+                <tr>
+                    <th>Mensaje</th>
+                    <td colspan="5">
+                        <pre>{{ this.pago.persona_confirma_mensaje }}</pre>
+                    </td>
+                </tr>
+            </table>
+
+            <a class="btn btn-default" href="?id={{ this.pago.id }}&confirmar">Confirmar Abono</a>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Listado de Pagos{% endblock %}
+{% block body %}
+
+    <a href="pagos/edit?id=add" class="btn btn-default">Nuevo pago</a>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Persona</th>
+            <th width="99%">Concepto</th>
+            <th>Cantidad</th>
+            <th>Fecha Cargo</th>
+            <th>Persona Confirma</th>
+            <th>Fecha Pago</th>
+            <th>Pagado</th>
+            <th>Editar</th>
+        </tr>
+        {% for item in this.pagos %}
+            <tr>
+                <td><a href="pagos/view?id={{ item.id }}">{{ item.id }}</a> </td>
+                <td>{{ item.getPersona().nombre }}</td>
+                <td>{{ item.concepto }}</td>
+                <td>{{ item.cantidad }} €</td>
+                <td>{{ item.fecha_cargo | date("d/m/Y") }}</td>
+                <td>{{ item.persona_confirma_abono?"Si":"No" }}</td>
+                <td>{{ (item.fecha_abono?item.fecha_abono | date("d/m/Y"):"") }}</td>
+                <td>{{ item.pagado ? "Si" : "No" }}</td>
+                <td><a href="pagos/edit?id={{ item.id }}">Editar</a> </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

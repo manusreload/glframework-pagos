@@ -1,0 +1,80 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Editar Pago Recurrente{% endblock %}
+{% block body %}
+
+    <form method="post">
+        <div class="form-group">
+            <label>Nombre Interno</label>
+            <input type="text" class="form-control" placeholder="Nombre Interno" name="recurrente[nombre]" value="{{ this.recurrente.nombre }}">
+        </div>
+        <div class="form-group">
+            <label>Concepto</label>
+            <input type="text" class="form-control" placeholder="Concepto" name="recurrente[concepto]" value="{{ this.recurrente.concepto }}">
+        </div>
+        <div class="form-group">
+            <label>Cantidad €</label>
+            <input type="number" step="0.01" class="form-control" placeholder="Cantidad" name="recurrente[cantidad]" value="{{ this.recurrente.cantidad }}">
+        </div>
+        <div class="form-group">
+            <label>Tipo De Pago</label>
+            {% set tipos = this.recurrente.getTiposPago() %}
+            <select name="recurrente[tipo]" class="form-control">
+            {% for key, tipo in tipos %}
+                <option value="{{ key }}" {{ key == this.recurrente.tipo?"selected":"" }}>{{ tipo }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Primer Dia de Cargo</label>
+            <input type="number" step="1" class="form-control" placeholder="Dia" name="recurrente[primer_dia]" value="{{ this.recurrente.primer_dia }}">
+            <ul>
+                <li>Si el tipo es <b>anual</b>, será el día del año que se emita el cargo (1-360)</li>
+                <li>Si el tipo es <b>mensual</b>, será el día del mes que se emita el cargo (1-31). Si el dia es mayor que el numero de días de ese mes, se toma el ultimo día del mes</li>
+                <li>Si el tipo es <b>semanal</b>, será el día de la semana que se emita el cargo (1-5, siendo 1 = Lunes, 5 = Viernes)</li>
+                <li>Si el tipo es <b>diario</b>, se ignora este valor</li>
+                <li>Si el valor es 0, se tomará el primer día</li>
+            </ul>
+            <small></small>
+        </div>
+        <div class="form-group">
+            <label>Personas que aplican</label>
+            <select name="personas[]" class="form-control" multiple>
+                {% for persona in this.personas %}
+                    {% set aplica = this.recurrente.isPersona(persona.id) %}
+                    <option value="{{ persona.id }}" {{ aplica?"selected":"" }}>{{ persona.nombre }} {{ aplica?"√":"" }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Forma de pago</label>
+            <textarea name="recurrente[forma_pago]" rows="5" class="form-control">{{ this.recurrente.forma_pago }}</textarea>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="recurrente[generar_pagado]" value="0">
+                <input type="checkbox" name="recurrente[generar_pagado]" value="1" {{ this.recurrente.generar_pagado?"checked":"" }}> Marcar como Pagados Al generar
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="recurrente[desactivar]" value="0">
+                <input type="checkbox" name="recurrente[desactivar]" value="1" {{ (this.recurrente.desactivar)?"checked":"" }}> Desactivar pago
+            </label>
+        </div>
+        <button name="save" type="submit" class="btn btn-primary">Guardar</button>
+        <a href="/recurrentes" class="btn btn-default">Volver</a>
+        <button name="delete" class="btn btn-danger pull-right">Eliminar</button>
+    </form>
+
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

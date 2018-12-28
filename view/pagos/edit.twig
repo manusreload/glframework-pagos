@@ -1,0 +1,53 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Editar Pago{% endblock %}
+{% block body %}
+
+    <form method="post">
+        <div class="form-group">
+            <label>Persona</label>
+            <select name="pago[persona_id]" class="form-control" required>
+                <option value="">(Seleccionar persona)</option>
+                {% for persona in this.personas %}
+                <option value="{{ persona.id }}" {{ persona.id == this.pago.persona_id?"selected":"" }}>{{ persona.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Cantidad</label>
+            <input type="number" step="0.01" class="form-control" placeholder="Cantidad" name="pago[cantidad]" value="{{ this.pago.cantidad }}">
+        </div>
+        <div class="form-group">
+            <label>Concepto</label>
+            <input type="text" class="form-control" placeholder="Concepto" name="pago[concepto]" value="{{ this.pago.concepto }}">
+        </div>
+        <div class="form-group">
+            <label>Fecha Cargo</label>
+            <input type="date" class="form-control" placeholder="Fecha Cargo" name="pago[fecha_cargo]" value="{{ this.pago.fecha_cargo | default("now") | date("Y-m-d") }}">
+        </div>
+        <div class="form-group">
+            <label>Fecha Abono</label>
+            <input type="date" class="form-control" placeholder="Fecha Cargo" name="pago[fecha_abono]" value="{{ this.pago.fecha_abono }}">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="pago[pagado]" value="0">
+                <input type="checkbox" name="pago[pagado]" value="1" {{ this.pago.pagado?"checked":"" }}> Pagado
+            </label>
+        </div>
+        <button name="save" type="submit" class="btn btn-default">Guardar</button>
+        <a href="/pagos" class="btn btn-primary">Volver</a>
+        <button name="delete" type="submit" class="btn btn-danger pull-right">Eliminar</button>
+    </form>
+
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

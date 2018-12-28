@@ -1,0 +1,45 @@
+{% extends "templates/base.twig" %}
+{% set simple = true %}
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:35
+ #
+ #}
+{% block title %}Confirmar Abono{% endblock %}
+{% block body %}
+
+    {% if this.pago %}
+        <br>
+        <br>
+        <br>
+
+
+        {% if this.abort %}
+            <h1>Entendido, hemos cancelado la confirmacion</h1>
+
+        {% else %}
+            <div class="panel panel-primary">
+                <div class="panel-heading">Muchas gracias 🎉</div>
+                <div class="panel-body">
+                <h1></h1>
+                <p>Has confirmado que has pagado {{ this.pago.concepto }}.</p>
+                <form method="post">
+                    <div class="form-group">
+                        <label>Además puedes dejar un mensaje sobre el pago. Puedes decir donde has dejado el dinero o si lo has echo por banco o simplemente dejar un saludo.</label>
+                        <textarea class="form-control" name="mensaje">{{ this.pago.persona_confirma_mensaje }}</textarea>
+                    </div>
+                    <button type="submit" name="save" class="btn btn-success"><i class="fa fa-send"></i> Enviar</button>
+
+                    <button type="submit" name="abort" class="btn btn-danger pull-right"><i class="fa fa-times"></i> Ups, no he pagado aún.</button>
+                </form>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}

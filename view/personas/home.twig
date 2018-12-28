@@ -1,0 +1,38 @@
+{% extends "templates/base.twig" %}
+
+{#
+ # Created by PhpStorm.
+ # User: mmunoz
+ # Date: 3/09/18
+ # Time: 9:44
+ #
+ #}
+{% block title %}Listado de Personas{% endblock %}
+{% block body %}
+
+    <a href="personas/edit?id=add" class="btn btn-default">Nueva persona</a>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th width="99%">Nombre</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>€ Pendientes</th>
+            <th>€ Pagados</th>
+        </tr>
+        {% for item in this.personas %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phone }}</td>
+                <td></td>
+                <td></td>
+                <td><a href="personas/edit?id={{ item.id }}">Editar</a> </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+{% block scripts %}{% endblock %}
+{% block styles %}{% endblock %}
