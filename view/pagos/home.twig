@@ -16,6 +16,7 @@
             <th>#</th>
             <th>Persona</th>
             <th width="99%">Concepto</th>
+            <th>Recurrente</th>
             <th>Cantidad</th>
             <th>Fecha Cargo</th>
             <th>Persona Confirma</th>
@@ -23,11 +24,12 @@
             <th>Pagado</th>
             <th>Editar</th>
         </tr>
-        {% for item in this.pagos %}
+        {% for item in this.pagos.order('fecha_cargo', true) %}
             <tr>
                 <td><a href="pagos/view?id={{ item.id }}">{{ item.id }}</a> </td>
                 <td>{{ item.getPersona().nombre }}</td>
                 <td>{{ item.concepto }}</td>
+                <td>{{ item.getPagoRecurrente().nombre }}</td>
                 <td>{{ item.cantidad }} €</td>
                 <td>{{ item.fecha_cargo | date("d/m/Y") }}</td>
                 <td>{{ item.persona_confirma_abono?"Si":"No" }}</td>

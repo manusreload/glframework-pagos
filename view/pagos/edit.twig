@@ -28,6 +28,16 @@
             <label>Concepto</label>
             <input type="text" class="form-control" placeholder="Concepto" name="pago[concepto]" value="{{ this.pago.concepto }}">
         </div>
+
+        <div class="form-group">
+            <label>Pago Recurrente</label>
+            <select name="pago[pago_recurrente_id]" class="form-control">
+                <option value="">(Pago Recurrente?)</option>
+                {% for recurrente in this.recurrentes %}
+                    <option value="{{ recurrente.id }}" {{ recurrente.id == this.pago.pago_recurrente_id?"selected":"" }}>{{ recurrente.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
         <div class="form-group">
             <label>Fecha Cargo</label>
             <input type="date" class="form-control" placeholder="Fecha Cargo" name="pago[fecha_cargo]" value="{{ this.pago.fecha_cargo | default("now") | date("Y-m-d") }}">
