@@ -24,7 +24,7 @@
             <th>Pagado</th>
             <th>Editar</th>
         </tr>
-        {% for item in this.pagos.order('fecha_cargo', true) %}
+        {% for item in this.pagos.reverse() %}
             <tr>
                 <td><a href="pagos/view?id={{ item.id }}">{{ item.id }}</a> </td>
                 <td>{{ item.getPersona().nombre }}</td>
